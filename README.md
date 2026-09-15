@@ -44,6 +44,7 @@ have already been created (typically by a wrapper script that sources them
 inside the SLURM array job, after setting up sample metadata and paths):
 
 - `file` — path to the current species' input table (set per array task)
+- `genome_presence` - data frame with the qc'ed species-sample pairs 
 - `samples_phenotype` — data frame mapping sample `label` to `subject`,
   `Phenotype` (`Control`/`CD`/`UC`), and `cohort` (`Pediatric`/`Adult`)
 - `output_wd` — base directory for writing results
