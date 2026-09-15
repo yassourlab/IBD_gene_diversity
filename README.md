@@ -79,7 +79,7 @@ z-score/candidate-gene lists are not part of this set).
 |---|---|---|
 | `2_run_gene_Weighted_avg_genome_sample_variance_model.R` | Genome-level ND model | Collapses per-gene ND into one weighted genome-level ND value per sample, then fits a linear model of ND ~ Phenotype (Control/CD/UC), adjusting for coverage, breadth, and cohort. Outputs model coefficients, adjusted group means, and a variance-partitioning breakdown. |
 | `9_run_ND_genes_stats.R` | Gene-level ND follow-up | Extracts per-sample, per-gene diversity/enrichment metrics for genes previously flagged as ND-decreased ("purged") or ND-increased ("diversified") in IBD vs. Control. |
-| `9_run_NS_genes_stats.R` | Gene-level NS follow-up | Extracts per-sample, per-gene metrics for genes previously flagged as NS-increased or NS-decreased in IBD vs. Control, and correlates nonsynonymous enrichment (pN/pS) with clinical inflammation severity (fecal calprotectin) per Phenotype and gene category. |
+| `9_run_NS_genes_stats.R` | Gene-level NS follow-up | Extracts per-sample, per-gene metrics for genes previously flagged as NS-increased or NS-decreased in IBD vs. Control. |
 | `10_run_gene_SNV_NS_enrich_model.R` | Gene-level NS enrichment model | Binomial mixed model (`glmmTMB`) testing whether nonsynonymous SNV enrichment differs by Phenotype, with per-gene random effects. Produces both an overall (population-level) effect and per-gene z-scores used to define the NS-increased/decreased gene lists consumed by `9_run_NS_genes_stats.R`. |
 
 **Typical order of use:** `2` (genome-level ND) and `10` (gene-level NS
@@ -87,10 +87,3 @@ model) produce the statistical results (and, for `10`, the candidate gene
 lists) that feed into the gene-level follow-up scripts `9_run_ND_genes_stats.R`,
 `9_run_NS_genes_stats.R`, and `4_run_snv_stats.R`.
 
-## Notes on script `9_run_NS_genes_stats.R`
-
-Two of the three result tables this script computes (mean gene counts
-retained before/after QC filtering, and count-weighted mean pN/pS & dN/dS
-per gene and Phenotype) have their `write_csv()` calls commented out, so
-by default only the severity-correlation table
-(`<species>_pnps_corr_severity.csv`) is written to disk.
